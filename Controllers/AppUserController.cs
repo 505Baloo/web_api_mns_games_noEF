@@ -51,8 +51,6 @@ namespace WebAPI_MNS_Games.Controllers
                         Country = sqlReader["Country"].ToString(),
                     };
                 }
-
-                sqlCmd.ExecuteNonQuery();
                 DbConnection.Close();
             }
             return user;
