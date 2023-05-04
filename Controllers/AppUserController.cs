@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json.Nodes;
 using System.Diagnostics.Metrics;
 using System.Reflection.Emit;
+using WebAPI_MNS_Games.Domain.DTO;
+using WebAPI_MNS_Games.Abstractions;
+using WebAPI_MNS_Games.Domain.Services;
 
 namespace WebAPI_MNS_Games.Controllers
 {
@@ -13,125 +16,90 @@ namespace WebAPI_MNS_Games.Controllers
     [ApiController]
     public class AppUserController 
     {
-        // properties
-        const string DataSource = @"Data Source=JORDAN\SQLEXPRESS;Initial Catalog=MNS_Games_DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private readonly IAppUserService _appUserService;
 
-        private readonly SqlConnection DbConnection = new(DataSource);
-
-        private readonly List<AppUserModel> Users = new();
-
-        [Route("GetUserByID/{id}")]
-        [HttpGet]
-        public AppUserModel GetUserByID(int id)
+        public AppUserController(IAppUserService appUserService)
         {
-            AppUserModel user = new AppUserModel();
-            using (DbConnection)
-            {
-                DbConnection.Open();
-                SqlCommand sqlCmd = new SqlCommand("SP_GET_USER_BY_ID", DbConnection);
-                sqlCmd.CommandType = CommandType.StoredProcedure;
-                sqlCmd.Parameters.AddWithValue("@ID", SqlDbType.Int).Value = id;
-
-                SqlDataReader sqlReader = sqlCmd.ExecuteReader();
-                while(sqlReader.Read())
-                {
-                    user = new AppUserModel
-                    {
-                        ID = int.Parse(sqlReader["ID"].ToString()),
-                        LoginNickname = sqlReader["LoginNickname"].ToString(),
-                        LoginPassword = sqlReader["LoginPassword"].ToString(),
-                        Email = sqlReader["Email"].ToString(),
-                        FirstName = sqlReader["FirstName"].ToString(),
-                        LastName = sqlReader["LastName"].ToString(),
-                        IsAdmin = bool.Parse(sqlReader["IsAdmin"].ToString()),
-                        StreetNumber = sqlReader["StreetNumber"].ToString(),
-                        StreetName = sqlReader["StreetName"].ToString(),
-                        Zipcode = sqlReader["Zipcode"].ToString(),
-                        City = sqlReader["City"].ToString(),
-                        Country = sqlReader["Country"].ToString(),
-                    };
-                }
-                DbConnection.Close();
-            }
-            return user;
+            _appUserService = appUserService;
         }
 
         [Route("GetAllUsers")]
         [HttpGet]
-        public List<AppUserModel> GetAllUsers()
+        public IEnumerable<AppUserDTO> GetAllUsersDTO()
         {
-            // SQL Query preparation
-            string query = "SELECT * FROM AppUser";
-            SqlCommand command = new(query, DbConnection);
-
-            // Starting connection with DB and executing
-            DbConnection.Open();
-
-            SqlDataReader sqlReader = command.ExecuteReader();
-            while (sqlReader.Read()) // returns true while there is something to read
-            {
-                // use the row from the database and create new model
-                Users.Add(new AppUserModel
-                {
-                    ID = int.Parse(sqlReader["ID"].ToString()),
-                    LoginNickname = sqlReader["LoginNickname"].ToString(),
-                    LoginPassword = sqlReader["LoginPassword"].ToString(),
-                    Email = sqlReader["Email"].ToString(),
-                    FirstName = sqlReader["FirstName"].ToString(),
-                    LastName = sqlReader["LastName"].ToString(),
-                    IsAdmin = bool.Parse(sqlReader["IsAdmin"].ToString()),
-                    StreetNumber = sqlReader["StreetNumber"].ToString(),
-                    StreetName = sqlReader["StreetName"].ToString(),
-                    Zipcode = sqlReader["Zipcode"].ToString(),
-                    City = sqlReader["City"].ToString(),
-                    Country = sqlReader["Country"].ToString(),
-                });
-            }
-            DbConnection.Close();
-
-            return Users;
+            return _appUserService.GetAllUsersDTO();
         }
 
-        [Route("InsertUser")]
-        [HttpPost]
-        public void InsertUser([FromBody]JsonObject bodyValues)
-        {
-            AppUserModel user = new AppUserModel()
-            {
-                LoginNickname = bodyValues["LoginNickname"].ToString(),
-                LoginPassword = bodyValues["LoginPassword"].ToString(),
-                Email = bodyValues["Email"].ToString(),
-                FirstName = bodyValues["FirstName"].ToString(),
-                LastName = bodyValues["LastName"].ToString(),
-                IsAdmin = bool.Parse(bodyValues["IsAdmin"].ToString()),
-                StreetNumber = bodyValues["StreetNumber"].ToString(),
-                StreetName = bodyValues["StreetName"].ToString(),
-                Zipcode = bodyValues["Zipcode"].ToString(),
-                City = bodyValues["City"].ToString(),
-                Country = bodyValues["Country"].ToString(),
-            };
+        //[Route("GetUserByID/{id}")]
+        //[HttpGet]
+        //public AppUser GetUserByID(int id)
+        //{
+        //    AppUser user = new AppUser();
+        //    using (DbConnection)
+        //    {
+        //        DbConnection.Open();
+        //        SqlCommand sqlCmd = new SqlCommand("SP_GET_USER_BY_ID", DbConnection);
+        //        sqlCmd.CommandType = CommandType.StoredProcedure;
+        //        sqlCmd.Parameters.AddWithValue("@ID", SqlDbType.Int).Value = id;
 
-            using (DbConnection)
-            {
-                DbConnection.Open();
-                SqlCommand sqlCmd = new SqlCommand("SP_INSERT_NEW_USER", DbConnection);
-                sqlCmd.CommandType = CommandType.StoredProcedure;
+        //        SqlDataReader sqlReader = sqlCmd.ExecuteReader();
+        //        while(sqlReader.Read())
+        //        {
+        //            user = new AppUser
+        //            {
+        //                ID = int.Parse(sqlReader["ID"].ToString()),
+        //                LoginNickname = sqlReader["LoginNickname"].ToString(),
+        //                LoginPassword = sqlReader["LoginPassword"].ToString(),
+        //                Email = sqlReader["Email"].ToString(),
+        //                FirstName = sqlReader["FirstName"].ToString(),
+        //                LastName = sqlReader["LastName"].ToString(),
+        //                IsAdmin = bool.Parse(sqlReader["IsAdmin"].ToString()),
+        //                StreetNumber = sqlReader["StreetNumber"].ToString(),
+        //                StreetName = sqlReader["StreetName"].ToString(),
+        //                Zipcode = sqlReader["Zipcode"].ToString(),
+        //                City = sqlReader["City"].ToString(),
+        //                Country = sqlReader["Country"].ToString(),
+        //            };
+        //        }
+        //        DbConnection.Close();
+        //    }
+        //    return user;
+        //}
 
-                sqlCmd.Parameters.AddWithValue("@LoginNickname", SqlDbType.NVarChar).Value = bodyValues["LoginNickname"];
-                sqlCmd.Parameters.AddWithValue("@LoginPassword", SqlDbType.NVarChar).Value = bodyValues["LoginPassword"];
-                sqlCmd.Parameters.AddWithValue("@Email", SqlDbType.NVarChar).Value = bodyValues["Email"];
-                sqlCmd.Parameters.AddWithValue("@FirstName", SqlDbType.NVarChar).Value = bodyValues["FirstName"];
-                sqlCmd.Parameters.AddWithValue("@LastName", SqlDbType.NVarChar).Value = bodyValues["LastName"];
-                sqlCmd.Parameters.AddWithValue("@StreetNumber", SqlDbType.NVarChar).Value = bodyValues["StreetNumber"];
-                sqlCmd.Parameters.AddWithValue("@StreetName", SqlDbType.NVarChar).Value = bodyValues["StreetName"];
-                sqlCmd.Parameters.AddWithValue("@Zipcode", SqlDbType.NVarChar).Value = bodyValues["Zipcode"];
-                sqlCmd.Parameters.AddWithValue("@City", SqlDbType.NVarChar).Value = bodyValues["City"];
-                sqlCmd.Parameters.AddWithValue("@Country", SqlDbType.NVarChar).Value = bodyValues["Country"];
-                sqlCmd.Parameters.AddWithValue("@IsAdmin", SqlDbType.Bit).Value = bodyValues["IsAdmin"];
 
-                sqlCmd.ExecuteNonQuery();
-                DbConnection.Close();
-            }
-        }
+        //[Route("InsertUser")]
+        //[HttpPost]
+        //public void InsertUser([FromBody]JsonObject bodyValues)
+        //{
+        //    try
+        //    {
+        //        using (DbConnection)
+        //        {
+        //            DbConnection.Open();
+        //            SqlCommand sqlCmd = new SqlCommand("SP_INSERT_NEW_USER", DbConnection);
+        //            sqlCmd.CommandType = CommandType.StoredProcedure;
+
+        //            sqlCmd.Parameters.AddWithValue("@LoginNickname", SqlDbType.VarChar).Value = bodyValues["loginNickname"];
+        //            sqlCmd.Parameters.AddWithValue("@LoginPassword", SqlDbType.VarChar).Value = bodyValues["loginPassword"];
+        //            sqlCmd.Parameters.AddWithValue("@Email", SqlDbType.VarChar).Value = bodyValues["email"];
+        //            sqlCmd.Parameters.AddWithValue("@FirstName", SqlDbType.VarChar).Value = bodyValues["firstName"];
+        //            sqlCmd.Parameters.AddWithValue("@LastName", SqlDbType.VarChar).Value = bodyValues["lastName"];
+        //            sqlCmd.Parameters.AddWithValue("@IsAdmin", SqlDbType.Bit).Value = bodyValues["isAdmin"];
+        //            sqlCmd.Parameters.AddWithValue("@StreetNumber", SqlDbType.VarChar).Value = bodyValues["streetNumber"];
+        //            sqlCmd.Parameters.AddWithValue("@StreetName", SqlDbType.VarChar).Value = bodyValues["streetName"];
+        //            sqlCmd.Parameters.AddWithValue("@Zipcode", SqlDbType.VarChar).Value = bodyValues["zipcode"];
+        //            sqlCmd.Parameters.AddWithValue("@City", SqlDbType.VarChar).Value = bodyValues["city"];
+        //            sqlCmd.Parameters.AddWithValue("@Country", SqlDbType.VarChar).Value = bodyValues["country"];
+
+        //            sqlCmd.ExecuteNonQuery();
+
+        //            DbConnection.Close();
+        //        }
+        //    }
+        //    catch(Exception e)
+        //    {
+
+        //    }
+        //}
     }
 }
