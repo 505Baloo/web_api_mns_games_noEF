@@ -8,5 +8,7 @@ namespace WebAPI_MNS_Games.Abstractions
     public interface IAppUserService
     {
         public IEnumerable<AppUserDTO> GetAllUsersDTO();
+
+        public AppUserDTO GetAllUsersNicknameDTO(int id);
     }
 }

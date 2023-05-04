@@ -30,41 +30,12 @@ namespace WebAPI_MNS_Games.Controllers
             return _appUserService.GetAllUsersDTO();
         }
 
-        //[Route("GetUserByID/{id}")]
-        //[HttpGet]
-        //public AppUser GetUserByID(int id)
-        //{
-        //    AppUser user = new AppUser();
-        //    using (DbConnection)
-        //    {
-        //        DbConnection.Open();
-        //        SqlCommand sqlCmd = new SqlCommand("SP_GET_USER_BY_ID", DbConnection);
-        //        sqlCmd.CommandType = CommandType.StoredProcedure;
-        //        sqlCmd.Parameters.AddWithValue("@ID", SqlDbType.Int).Value = id;
-
-        //        SqlDataReader sqlReader = sqlCmd.ExecuteReader();
-        //        while(sqlReader.Read())
-        //        {
-        //            user = new AppUser
-        //            {
-        //                ID = int.Parse(sqlReader["ID"].ToString()),
-        //                LoginNickname = sqlReader["LoginNickname"].ToString(),
-        //                LoginPassword = sqlReader["LoginPassword"].ToString(),
-        //                Email = sqlReader["Email"].ToString(),
-        //                FirstName = sqlReader["FirstName"].ToString(),
-        //                LastName = sqlReader["LastName"].ToString(),
-        //                IsAdmin = bool.Parse(sqlReader["IsAdmin"].ToString()),
-        //                StreetNumber = sqlReader["StreetNumber"].ToString(),
-        //                StreetName = sqlReader["StreetName"].ToString(),
-        //                Zipcode = sqlReader["Zipcode"].ToString(),
-        //                City = sqlReader["City"].ToString(),
-        //                Country = sqlReader["Country"].ToString(),
-        //            };
-        //        }
-        //        DbConnection.Close();
-        //    }
-        //    return user;
-        //}
+        [Route("GetUserByID/{id}")]
+        [HttpGet]
+        public AppUserDTO GetUserNicknameByIDDTO(int id)
+        {
+            return _appUserService.GetAllUsersNicknameDTO(id);
+        }
 
 
         //[Route("InsertUser")]

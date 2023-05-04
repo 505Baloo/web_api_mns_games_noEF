@@ -1,5 +1,6 @@
 ﻿using WebAPI_MNS_Games.Abstractions;
 using WebAPI_MNS_Games.Domain.DTO;
+using WebAPI_MNS_Games.Models;
 
 namespace WebAPI_MNS_Games.Domain.Services
 {
@@ -18,5 +19,14 @@ namespace WebAPI_MNS_Games.Domain.Services
 
             return appUsers.Select(appUser => new AppUserDTO(appUser)).ToList();
         }
+
+        public AppUserDTO GetAllUsersNicknameDTO(int id)
+        {
+            AppUser appUser = _appUserRepository.GetAppUserModelById(id);
+
+            return new AppUserDTO(appUser);
+        }
+
+
     }
 }

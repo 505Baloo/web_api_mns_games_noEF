@@ -41,5 +41,23 @@ namespace WebAPI_MNS_Games.Repo
 
             return appUsers;
         }
+
+        public AppUser GetAppUserModelById(int id)
+        {
+            AppUser appUserModel = null;
+            string query = $"SELECT * FROM AppUser Where ID={id}";
+            IDbCommand commandDb = ConnectToDbAndInitializeCommand();
+            commandDb.CommandText = query;
+
+            IDataReader sqlReader = commandDb.ExecuteReader();
+            while (sqlReader.Read()) // returns true while there is something to read
+            {
+                appUserModel = AppUserHelper.ConvertReaderToAppUser(sqlReader);
+            }
+            _dbConnection.Close();
+
+            return appUserModel;
+
+        }
     }
 }
