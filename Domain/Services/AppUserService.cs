@@ -1,4 +1,5 @@
 ﻿using WebAPI_MNS_Games.Abstractions;
+using WebAPI_MNS_Games.Domain.CMD;
 using WebAPI_MNS_Games.Domain.DTO;
 using WebAPI_MNS_Games.Models;
 
@@ -27,6 +28,9 @@ namespace WebAPI_MNS_Games.Domain.Services
             return new AppUserDTO(appUser);
         }
 
-
+        public void CreateAppUser(CreateAppUserCmd appUserCmd)
+        {
+            AppUser appUser = appUserCmd.ToAppUser();
+        }
     }
 }

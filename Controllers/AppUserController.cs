@@ -9,6 +9,7 @@ using System.Reflection.Emit;
 using WebAPI_MNS_Games.Domain.DTO;
 using WebAPI_MNS_Games.Abstractions;
 using WebAPI_MNS_Games.Domain.Services;
+using WebAPI_MNS_Games.Domain.CMD;
 
 namespace WebAPI_MNS_Games.Controllers
 {
@@ -38,8 +39,13 @@ namespace WebAPI_MNS_Games.Controllers
         }
 
 
-        //[Route("InsertUser")]
-        //[HttpPost]
+        [Route("CreateUser")]
+        [HttpPost]
+        public void CreateUser([FromBody] CreateAppUserCmd appUserCmd)
+        {
+            _appUserService.CreateAppUser(appUserCmd);
+        }
+
         //public void InsertUser([FromBody]JsonObject bodyValues)
         //{
         //    try
