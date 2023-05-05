@@ -63,6 +63,7 @@ namespace WebAPI_MNS_Games.Repo
         public void CreateAppUser(AppUser appUser)
         {
             IDbCommand sqlCommand = ConnectToDbAndInitializeCommand();
+            sqlCommand.CommandText = "SP_INSERT_NEW_USER";
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
             DbCommandHelper.AddParameterWithValue(sqlCommand, "LoginNickname", appUser.LoginNickname);
@@ -76,6 +77,9 @@ namespace WebAPI_MNS_Games.Repo
             DbCommandHelper.AddParameterWithValue(sqlCommand, "Zipcode", appUser.Zipcode);
             DbCommandHelper.AddParameterWithValue(sqlCommand, "City", appUser.City);
             DbCommandHelper.AddParameterWithValue(sqlCommand, "Country", appUser.Country);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "ReturnCode", "");
+
+            
 
             sqlCommand.ExecuteNonQuery();
 
