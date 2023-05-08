@@ -66,20 +66,31 @@ namespace WebAPI_MNS_Games.Repo
             sqlCommand.CommandText = "SP_INSERT_NEW_USER";
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "LoginNickname", appUser.LoginNickname);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "LoginPassword", appUser.LoginPassword);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "FirstName", appUser.FirstName);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "LastName", appUser.LastName);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "Email", appUser.Email);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "IsAdmin", appUser.IsAdmin);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "StreetNumber", appUser.StreetNumber);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "StreetName", appUser.StreetName);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "Zipcode", appUser.Zipcode);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "City", appUser.City);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "Country", appUser.Country);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "ReturnCode", "");
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@LoginNickname", appUser.LoginNickname);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@LoginPassword", appUser.LoginPassword);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@FirstName", appUser.FirstName);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@LastName", appUser.LastName);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@Email", appUser.Email);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@IsAdmin", appUser.IsAdmin);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@StreetNumber", appUser.StreetNumber);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@StreetName", appUser.StreetName);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@Zipcode", appUser.Zipcode);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@City", appUser.City);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@Country", appUser.Country);
+            DbCommandHelper.AddParameterWithValue(sqlCommand, "@ReturnCode", "");
 
             sqlCommand.ExecuteNonQuery();
+            
+            _dbConnection.Close();
+        }
+
+        public void DeleteAppUser(int id)
+        {
+            string query = $"DELETE FROM AppUser Where ID={id}";
+            IDbCommand commandDb = ConnectToDbAndInitializeCommand();
+            commandDb.CommandText = query;
+
+            commandDb.ExecuteNonQuery();
 
             _dbConnection.Close();
         }

@@ -33,5 +33,10 @@ namespace WebAPI_MNS_Games.Domain.Services
             AppUser appUser = appUserCmd.ToAppUser();
             _appUserRepository.CreateAppUser(appUser);
         }
+        
+        public void DeleteAppUser(int id)
+        {
+            _appUserRepository.DeleteAppUser(id);
+        }
     }
 }

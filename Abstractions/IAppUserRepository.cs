@@ -11,5 +11,6 @@ namespace WebAPI_MNS_Games.Abstractions
 
         public void CreateAppUser(AppUser appUser);
 
+        public void DeleteAppUser(int id);
     }
 }

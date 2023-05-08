@@ -46,6 +46,13 @@ namespace WebAPI_MNS_Games.Controllers
             _appUserService.CreateAppUser(appUserCmd);
         }
 
+        [Route("DeleteUser")]
+        [HttpDelete]
+        public void DeleteUser(int id)
+        {
+            _appUserService.DeleteAppUser(id);
+        }
+
         //public void InsertUser([FromBody]JsonObject bodyValues)
         //{
         //    try
