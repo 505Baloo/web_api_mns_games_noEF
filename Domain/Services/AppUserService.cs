@@ -14,12 +14,6 @@ namespace WebAPI_MNS_Games.Domain.Services
             _appUserRepository = appUserRepository;
         }
 
-        public void CreateAppUser(CreateAppUserCmd appUserCmd)
-        {
-            AppUser appUser = appUserCmd.ToAppUser();
-            _appUserRepository.CreateAppUser(appUser);
-        }
-
         public IEnumerable<AppUserDTO> GetAllUsersDTO()
         {
             var appUsers = _appUserRepository.GetAllUsers();
