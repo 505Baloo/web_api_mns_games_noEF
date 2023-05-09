@@ -5,9 +5,6 @@ namespace WebAPI_MNS_Games.Domain
 {
     public class EditAppUserCmd
     {
-        [Key]
-        public int ID { get; set; }
-
         [Required(ErrorMessage = "A login nickname is required.")]
         public string LoginNickname { get; set; }
 
@@ -30,6 +27,8 @@ namespace WebAPI_MNS_Games.Domain
         public string City { get; set; }
 
         public string Country { get; set; }
+
+        public EditAppUserCmd() { }
 
         public EditAppUserCmd(AppUser appUser)
         {

@@ -28,13 +28,6 @@ namespace WebAPI_MNS_Games.Domain.Services
             return new AppUserDTO(appUser);
         }
 
-        public EditAppUserCmd GetEditAppUserCmd(int id)
-        {
-            AppUser appUser = _appUserRepository.GetAppUserModelById(id);
-
-            return new EditAppUserCmd(appUser);
-        }
-
         public void CreateAppUser(CreateAppUserCmd createAppUserCmd)
         {
             AppUser appUser = createAppUserCmd.ToAppUser();
@@ -43,7 +36,6 @@ namespace WebAPI_MNS_Games.Domain.Services
 
         public void UpdateAppUser(EditAppUserCmd editAppUserCmd, int id)
         {
-            editAppUserCmd = GetEditAppUserCmd(id);
             AppUser appUser = editAppUserCmd.ToAppUser();
 
             _appUserRepository.UpdateAppUser(appUser, id);

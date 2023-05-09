@@ -38,16 +38,15 @@ namespace WebAPI_MNS_Games.Controllers
             return _appUserService.GetAllUsersNicknameDTO(id);
         }
 
-
         [Route("Create")]
         [HttpPost]
-        public void CreateUser([FromBody] CreateAppUserCmd createAppUserCmd)
+        public void CreateUser(CreateAppUserCmd createAppUserCmd)
         {
             _appUserService.CreateAppUser(createAppUserCmd);
         }
 
         [Route("Update/{id}")]
-        [HttpPost]
+        [HttpPut]
         public void UpdateUser(EditAppUserCmd editAppUserCmd, int id)
         {
             _appUserService.UpdateAppUser(editAppUserCmd, id);
@@ -59,38 +58,5 @@ namespace WebAPI_MNS_Games.Controllers
         {
             _appUserService.DeleteAppUser(id);
         }
-
-        //public void InsertUser([FromBody]JsonObject bodyValues)
-        //{
-        //    try
-        //    {
-        //        using (DbConnection)
-        //        {
-        //            DbConnection.Open();
-        //            SqlCommand sqlCmd = new SqlCommand("SP_INSERT_NEW_USER", DbConnection);
-        //            sqlCmd.CommandType = CommandType.StoredProcedure;
-
-        //            sqlCmd.Parameters.AddWithValue("@LoginNickname", SqlDbType.VarChar).Value = bodyValues["loginNickname"];
-        //            sqlCmd.Parameters.AddWithValue("@LoginPassword", SqlDbType.VarChar).Value = bodyValues["loginPassword"];
-        //            sqlCmd.Parameters.AddWithValue("@Email", SqlDbType.VarChar).Value = bodyValues["email"];
-        //            sqlCmd.Parameters.AddWithValue("@FirstName", SqlDbType.VarChar).Value = bodyValues["firstName"];
-        //            sqlCmd.Parameters.AddWithValue("@LastName", SqlDbType.VarChar).Value = bodyValues["lastName"];
-        //            sqlCmd.Parameters.AddWithValue("@IsAdmin", SqlDbType.Bit).Value = bodyValues["isAdmin"];
-        //            sqlCmd.Parameters.AddWithValue("@StreetNumber", SqlDbType.VarChar).Value = bodyValues["streetNumber"];
-        //            sqlCmd.Parameters.AddWithValue("@StreetName", SqlDbType.VarChar).Value = bodyValues["streetName"];
-        //            sqlCmd.Parameters.AddWithValue("@Zipcode", SqlDbType.VarChar).Value = bodyValues["zipcode"];
-        //            sqlCmd.Parameters.AddWithValue("@City", SqlDbType.VarChar).Value = bodyValues["city"];
-        //            sqlCmd.Parameters.AddWithValue("@Country", SqlDbType.VarChar).Value = bodyValues["country"];
-
-        //            sqlCmd.ExecuteNonQuery();
-
-        //            DbConnection.Close();
-        //        }
-        //    }
-        //    catch(Exception e)
-        //    {
-
-        //    }
-        //}
     }
 }

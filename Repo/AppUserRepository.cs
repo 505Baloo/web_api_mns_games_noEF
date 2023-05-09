@@ -78,7 +78,7 @@ namespace WebAPI_MNS_Games.Repo
             DbCommandHelper.AddParameterWithValue(sqlCommand, "@Zipcode", appUser.Zipcode);
             DbCommandHelper.AddParameterWithValue(sqlCommand, "@City", appUser.City);
             DbCommandHelper.AddParameterWithValue(sqlCommand, "@Country", appUser.Country);
-            DbCommandHelper.AddParameterWithValue(sqlCommand, "@ReturnCode", "");
+            //DbCommandHelper.AddParameterWithValue(sqlCommand, "@ReturnCode", "");
 
             sqlCommand.ExecuteNonQuery();
             
@@ -87,7 +87,7 @@ namespace WebAPI_MNS_Games.Repo
 
         public void UpdateAppUser(AppUser appUser, int id)
         {
-            string query = $"UPDATE FROM AppUser SET LoginNickname = '{appUser.LoginNickname}' LoginPassword = '{appUser.LoginPassword}' FirstName = '{appUser.FirstName}' LastName = '{appUser.LastName}' Email = '{appUser.Email}' StreetNumber = '{appUser.StreetNumber}' StreetName = '{appUser.StreetName}' Zipcode = '{appUser.Zipcode}' City = '{appUser.City}' Country = '{appUser.Country}' WHERE ID = {id}";
+            string query = $"UPDATE AppUser SET LoginNickname = '{appUser.LoginNickname}', LoginPassword = '{appUser.LoginPassword}', FirstName = '{appUser.FirstName}', LastName = '{appUser.LastName}', Email = '{appUser.Email}', StreetNumber = '{appUser.StreetNumber}', StreetName = '{appUser.StreetName}', Zipcode = '{appUser.Zipcode}', City = '{appUser.City}', Country = '{appUser.Country}' WHERE ID = {id}";
 
             IDbCommand sqlCommand = ConnectToDbAndInitializeCommand();
             sqlCommand.CommandText = query;
