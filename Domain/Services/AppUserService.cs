@@ -41,11 +41,10 @@ namespace WebAPI_MNS_Games.Domain.Services
             _appUserRepository.CreateAppUser(appUser);
         }
 
-        public void UpdateAppUser(int id)
+        public void UpdateAppUser(EditAppUserCmd editAppUserCmd, int id)
         {
-            AppUser appUser = new AppUser();
-            EditAppUserCmd editAppUserCmd = GetEditAppUserCmd(id);
-            appUser = editAppUserCmd.ToAppUser(appUser);
+            editAppUserCmd = GetEditAppUserCmd(id);
+            AppUser appUser = editAppUserCmd.ToAppUser();
 
             _appUserRepository.UpdateAppUser(appUser, id);
         }

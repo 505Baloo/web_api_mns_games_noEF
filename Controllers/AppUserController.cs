@@ -48,9 +48,9 @@ namespace WebAPI_MNS_Games.Controllers
 
         [Route("Update/{id}")]
         [HttpPost]
-        public void UpdateUser([FromBody] int id)
+        public void UpdateUser(EditAppUserCmd editAppUserCmd, int id)
         {
-            _appUserService.UpdateAppUser(id);
+            _appUserService.UpdateAppUser(editAppUserCmd, id);
         }
 
         [Route("Delete/{id}")]

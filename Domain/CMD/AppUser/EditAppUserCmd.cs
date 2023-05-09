@@ -45,20 +45,21 @@ namespace WebAPI_MNS_Games.Domain
             Country = appUser.Country;
         }
 
-        public AppUser ToAppUser(AppUser appUser)
+        public AppUser ToAppUser()
         {
-            appUser.LoginNickname = LoginNickname;
-            appUser.LoginPassword = LoginPassword;
-            appUser.FirstName = FirstName;
-            appUser.LastName = LastName;
-            appUser.Email = Email;
-            appUser.StreetNumber = StreetNumber;
-            appUser.StreetName = StreetName;
-            appUser.Zipcode = Zipcode;
-            appUser.City = City;
-            appUser.Country = Country;
-
-            return appUser;
+            return new AppUser
+            {
+                LoginNickname = LoginNickname,
+                LoginPassword = LoginPassword,
+                FirstName = FirstName,
+                LastName = LastName,
+                Email = Email,
+                StreetNumber = StreetNumber,
+                StreetName = StreetName,
+                Zipcode = Zipcode,
+                City = City,
+                Country = Country,
+            };
         }
     }
 }
