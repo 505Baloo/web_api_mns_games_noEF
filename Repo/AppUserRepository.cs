@@ -77,44 +77,6 @@ namespace WebAPI_MNS_Games.Repo
             DbCommandHelper.AddParameterWithValue(sqlCommand, "@Zipcode", appUser.Zipcode);
             DbCommandHelper.AddParameterWithValue(sqlCommand, "@City", appUser.City);
             DbCommandHelper.AddParameterWithValue(sqlCommand, "@Country", appUser.Country);
-
-            //if(appUser.FirstName != null)
-            //{
-            //    DbCommandHelper.AddParameterWithValue(sqlCommand, "@FirstName", appUser.FirstName);
-            //}
-            //if(appUser.LastName != null)
-            //{
-            //    DbCommandHelper.AddParameterWithValue(sqlCommand, "@LastName", appUser.LastName);
-            //}
-            //if (appUser.IsAdmin != null)
-            //{
-            //    DbCommandHelper.AddParameterWithValue(sqlCommand, "@IsAdmin", appUser.IsAdmin);
-            //}
-
-            //if (appUser.StreetNumber != null)
-            //{
-            //    DbCommandHelper.AddParameterWithValue(sqlCommand, "@StreetNumber", appUser.StreetNumber);
-            //}
-
-            //if (appUser.StreetName != null)
-            //{
-            //    DbCommandHelper.AddParameterWithValue(sqlCommand, "@StreetName", appUser.StreetName);
-            //}
-
-            //if (appUser.Zipcode != null)
-            //{
-            //    DbCommandHelper.AddParameterWithValue(sqlCommand, "@Zipcode", appUser.Zipcode);
-            //}
-
-            //if (appUser.City != null)
-            //{
-            //    DbCommandHelper.AddParameterWithValue(sqlCommand, "@City", appUser.City);
-            //}
-
-            //if (appUser.Country != null)
-            //{
-            //    DbCommandHelper.AddParameterWithValue(sqlCommand, "@Country", appUser.Country);
-            //}
             //Uncomment pour Ludo
             //DbCommandHelper.AddParameterWithValue(sqlCommand, "@ReturnCode", "");
 
