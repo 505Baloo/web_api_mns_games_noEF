@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WebAPI_MNS_Games.Models;
 
-namespace WebAPI_MNS_Games.Domain.CMD
+namespace WebAPI_MNS_Games.Domain
 {
     public class CreateAppUserCmd
     {

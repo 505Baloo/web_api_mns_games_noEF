@@ -9,7 +9,7 @@ using System.Reflection.Emit;
 using WebAPI_MNS_Games.Domain.DTO;
 using WebAPI_MNS_Games.Abstractions;
 using WebAPI_MNS_Games.Domain.Services;
-using WebAPI_MNS_Games.Domain.CMD;
+using WebAPI_MNS_Games.Domain;
 
 namespace WebAPI_MNS_Games.Controllers
 {
@@ -24,14 +24,14 @@ namespace WebAPI_MNS_Games.Controllers
             _appUserService = appUserService;
         }
 
-        [Route("GetAllUsers")]
+        [Route("GetAll")]
         [HttpGet]
         public IEnumerable<AppUserDTO> GetAllUsersDTO()
         {
             return _appUserService.GetAllUsersDTO();
         }
 
-        [Route("GetUserByID/{id}")]
+        [Route("Get/{id}")]
         [HttpGet]
         public AppUserDTO GetUserNicknameByIDDTO(int id)
         {
@@ -39,14 +39,21 @@ namespace WebAPI_MNS_Games.Controllers
         }
 
 
-        [Route("CreateUser")]
+        [Route("Create")]
         [HttpPost]
-        public void CreateUser([FromBody] CreateAppUserCmd appUserCmd)
+        public void CreateUser([FromBody] CreateAppUserCmd createAppUserCmd)
         {
-            _appUserService.CreateAppUser(appUserCmd);
+            _appUserService.CreateAppUser(createAppUserCmd);
         }
 
-        [Route("DeleteUser")]
+        [Route("Update/{id}")]
+        [HttpPost]
+        public void UpdateUser([FromBody] int id)
+        {
+            _appUserService.UpdateAppUser(id);
+        }
+
+        [Route("Delete/{id}")]
         [HttpDelete]
         public void DeleteUser(int id)
         {

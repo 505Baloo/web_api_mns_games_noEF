@@ -1,4 +1,4 @@
-﻿using WebAPI_MNS_Games.Domain.CMD;
+﻿using WebAPI_MNS_Games.Domain;
 using WebAPI_MNS_Games.Models;
 
 namespace WebAPI_MNS_Games.Abstractions
@@ -12,5 +12,7 @@ namespace WebAPI_MNS_Games.Abstractions
         public void CreateAppUser(AppUser appUser);
 
         public void DeleteAppUser(int id);
+
+        public void UpdateAppUser(AppUser appUser, int id);
     }
 }

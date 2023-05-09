@@ -1,5 +1,5 @@
 ﻿using WebAPI_MNS_Games.Abstractions;
-using WebAPI_MNS_Games.Domain.CMD;
+using WebAPI_MNS_Games.Domain;
 using WebAPI_MNS_Games.Domain.DTO;
 using WebAPI_MNS_Games.Models;
 
@@ -28,10 +28,26 @@ namespace WebAPI_MNS_Games.Domain.Services
             return new AppUserDTO(appUser);
         }
 
-        public void CreateAppUser(CreateAppUserCmd appUserCmd)
+        public EditAppUserCmd GetEditAppUserCmd(int id)
         {
-            AppUser appUser = appUserCmd.ToAppUser();
+            AppUser appUser = _appUserRepository.GetAppUserModelById(id);
+
+            return new EditAppUserCmd(appUser);
+        }
+
+        public void CreateAppUser(CreateAppUserCmd createAppUserCmd)
+        {
+            AppUser appUser = createAppUserCmd.ToAppUser();
             _appUserRepository.CreateAppUser(appUser);
+        }
+
+        public void UpdateAppUser(int id)
+        {
+            AppUser appUser = new AppUser();
+            EditAppUserCmd editAppUserCmd = GetEditAppUserCmd(id);
+            appUser = editAppUserCmd.ToAppUser(appUser);
+
+            _appUserRepository.UpdateAppUser(appUser, id);
         }
         
         public void DeleteAppUser(int id)
