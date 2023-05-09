@@ -5,12 +5,10 @@ namespace WebAPI_MNS_Games.App_Code.Helpers
     public static class DbCommandHelper
     {
 
-        public static IDbCommand SetStoredProcedureName(IDbCommand sqlCommand, string storedProcedureName)
+        public static void SetStoredProcedureName(IDbCommand sqlCommand, string storedProcedureName)
         {
             sqlCommand.CommandText = storedProcedureName;
             sqlCommand.CommandType = CommandType.StoredProcedure;
-
-            return sqlCommand;
         }
 
         public static void AddParameterWithValue(this IDbCommand command, string parameterName, object parameterValue)
