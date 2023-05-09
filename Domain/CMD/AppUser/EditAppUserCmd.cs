@@ -5,17 +5,14 @@ namespace WebAPI_MNS_Games.Domain
 {
     public class EditAppUserCmd
     {
-        [Required(ErrorMessage = "A login nickname is required.")]
         public string LoginNickname { get; set; }
 
-        [Required(ErrorMessage = "A login password is required.")]
         public string LoginPassword { get; set; }
 
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "An email address is required.")]
         public string Email { get; set; }
 
         public string StreetNumber { get; set; }
