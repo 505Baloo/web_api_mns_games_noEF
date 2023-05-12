@@ -9,10 +9,10 @@ namespace WebAPI_MNS_Games.Abstractions
 
         public AppUser GetAppUserModelById(int id);
 
-        public void CreateAppUser(AppUser appUser);
+        public string CreateAppUser(AppUser appUser);
 
         public void DeleteAppUser(int id);
 
-        public void UpdateAppUser(AppUser appUser, int id);
+        public string UpdateAppUser(AppUser appUser, int id);
     }
 }

@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using WebAPI_MNS_Games.Abstractions;
 
 namespace WebAPI_MNS_Games.Models
 {
-    public class AppUser
+    public class AppUser : AbstractDatabaseTable
     {
         [Key]
         public int ID { get; set; }
