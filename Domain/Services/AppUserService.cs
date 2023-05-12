@@ -1,6 +1,8 @@
 ﻿using WebAPI_MNS_Games.Abstractions;
 using WebAPI_MNS_Games.Domain;
 using WebAPI_MNS_Games.Domain.DTO;
+using WebAPI_MNS_Games.Exceptions;
+using WebAPI_MNS_Games.Execptions;
 using WebAPI_MNS_Games.Models;
 
 namespace WebAPI_MNS_Games.Domain.Services
@@ -28,10 +30,19 @@ namespace WebAPI_MNS_Games.Domain.Services
             return new AppUserDTO(appUser);
         }
 
-        public void CreateAppUser(CreateAppUserCmd createAppUserCmd)
+        public string CreateAppUser(CreateAppUserCmd createAppUserCmd)
         {
             AppUser appUser = createAppUserCmd.ToAppUser();
-            _appUserRepository.CreateAppUser(appUser);
+            string returnedCode = _appUserRepository.CreateAppUser(appUser);
+            if (returnedCode == "C201")
+            {
+                throw new CustomExceptionInsertEmail("This mail already exists");
+            }
+            if (returnedCode == "C202")
+            {
+                throw new CustomExceptionInsertLoginNickname("This nickname already exists");
+            }
+            return returnedCode;
         }
 
         public void UpdateAppUser(EditAppUserCmd editAppUserCmd, int id)
@@ -45,5 +56,6 @@ namespace WebAPI_MNS_Games.Domain.Services
         {
             _appUserRepository.DeleteAppUser(id);
         }
+
     }
 }

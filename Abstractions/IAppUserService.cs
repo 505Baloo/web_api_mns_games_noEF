@@ -12,7 +12,7 @@ namespace WebAPI_MNS_Games.Abstractions
 
         public AppUserDTO GetAllUsersNicknameDTO(int id);
 
-        public void CreateAppUser(CreateAppUserCmd appUserCmd);
+        public string CreateAppUser(CreateAppUserCmd appUserCmd);
 
         public void DeleteAppUser(int id);
 

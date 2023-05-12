@@ -10,6 +10,8 @@ using WebAPI_MNS_Games.Domain.DTO;
 using WebAPI_MNS_Games.Abstractions;
 using WebAPI_MNS_Games.Domain.Services;
 using WebAPI_MNS_Games.Domain;
+using WebAPI_MNS_Games.Execptions;
+using WebAPI_MNS_Games.Exceptions;
 
 namespace WebAPI_MNS_Games.Controllers
 {
@@ -40,9 +42,21 @@ namespace WebAPI_MNS_Games.Controllers
 
         [Route("Create")]
         [HttpPost]
-        public void CreateUser(CreateAppUserCmd createAppUserCmd)
+        public string CreateUser(CreateAppUserCmd createAppUserCmd)
         {
-            _appUserService.CreateAppUser(createAppUserCmd);
+            try
+            {
+                _appUserService.CreateAppUser(createAppUserCmd);
+                return "Inserted successfully";
+            }
+            catch (CustomExceptionInsertEmail ex)
+            {
+                return ex.Message;
+            }
+            catch (CustomExceptionInsertLoginNickname ex)
+            {
+                return ex.Message;
+            }
         }
 
         [Route("Update/{id}")]
